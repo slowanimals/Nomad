@@ -1,5 +1,6 @@
 import exifread
 from pathlib import Path
+from datetime import datetime
 
 #convert gps coords to decimal
 def convert_to_degrees(value):
@@ -12,7 +13,7 @@ def convert_to_degrees(value):
 
 #extract exif matadata
 def get_exif_data(path):
-    coords = []
+    data = {}
     folder = Path(path)
 
     for img in folder.iterdir():
@@ -25,6 +26,8 @@ def get_exif_data(path):
             gps_long = tags.get("GPS GPSLongitude")
             gps_long_ref = tags.get("GPS GPSLongitudeRef")
 
+            gps_time = tags.get('EXIF DateTimeOriginal')
+
             if gps_lat and gps_lat_ref and gps_long and gps_long_ref:
                 lat = convert_to_degrees(gps_lat)
                 long = convert_to_degrees(gps_long)
@@ -34,9 +37,21 @@ def get_exif_data(path):
                 if gps_long_ref.values[0] != 'E':
                     long = -long
             
-            coords.append([lat,long])
-    return coords
+            data[img.name] = {
+                'location' : [lat,long],
+                'time' : str(gps_time),
+                'path' : f'{img.name}'
+            }
+
+    sorted_data = sorted(
+        data.items(), 
+        key=lambda item: datetime.strptime(item[1]['time'], '%Y:%m:%d %H:%M:%S')
+        if item[1]['time'] else datetime.max
+    )
+
+    return sorted_data
     
     
 
 #print(get_exif_data('images/'))
+
