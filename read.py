@@ -1,4 +1,5 @@
 import exifread
+from pathlib import Path
 
 #convert gps coords to decimal
 def convert_to_degrees(value):
@@ -11,21 +12,31 @@ def convert_to_degrees(value):
 
 #extract exif matadata
 def get_exif_data(path):
-    with open(path, 'rb') as file:
-        tags = exifread.process_file(file)
-    
-    gps_lat = tags.get('GPS GPSLatitude')
-    gps_lat_ref = tags.get('GPS GPSLatitudeRef')
-    gps_long = tags.get("GPS GPSLongitude")
-    gps_long_ref = tags.get("GPS GPSLongitudeRef")
+    coords = []
+    folder = Path(path)
 
-    if gps_lat and gps_lat_ref and gps_long and gps_long_ref:
-        lat = convert_to_degrees(gps_lat)
-        long = convert_to_degrees(gps_long)
+    for img in folder.iterdir():
+        if img.suffix.lower() in ['.png','.jpg','.jpeg','.webp']:
+            with open(img, 'rb') as file:
+                tags = exifread.process_file(file)
+            
+            gps_lat = tags.get('GPS GPSLatitude')
+            gps_lat_ref = tags.get('GPS GPSLatitudeRef')
+            gps_long = tags.get("GPS GPSLongitude")
+            gps_long_ref = tags.get("GPS GPSLongitudeRef")
 
-        if gps_lat_ref.values[0] != 'N':
-            lat = -lat
-        if gps_long_ref.values[0] != 'E':
-            long = -long
+            if gps_lat and gps_lat_ref and gps_long and gps_long_ref:
+                lat = convert_to_degrees(gps_lat)
+                long = convert_to_degrees(gps_long)
+
+                if gps_lat_ref.values[0] != 'N':
+                    lat = -lat
+                if gps_long_ref.values[0] != 'E':
+                    long = -long
+            
+            coords.append([lat,long])
+    return coords
     
-    return tuple([long, lat])
+    
+
+#print(get_exif_data('images/'))
