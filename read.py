@@ -28,7 +28,4 @@ def get_exif_data(path):
         if gps_long_ref.values[0] != 'E':
             long = -long
     
-    return [long, lat]
-
-res = get_exif_data('testimg.jpg')
-print(res)
+    return tuple([long, lat])
