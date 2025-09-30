@@ -35,4 +35,4 @@ def plot(path):
 
 
 
-plot('images')
+#plot('images')
