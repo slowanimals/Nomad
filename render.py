@@ -1,9 +1,14 @@
 import read
 import folium
 
-def plot(path):
+def plot(path, linecolr):
     meta = read.get_exif_data(f'{path}/')
-    map = folium.Map(location=meta[0][1]['location'], zoom_start=6)
+    map = folium.Map(
+        location=meta[0][1]['location'], 
+        zoom_start=6,
+        tiles='Esri.WorldStreetMap'
+        )
+
 
     coords = []
     for filename, data in meta:
@@ -14,7 +19,7 @@ def plot(path):
         folium.Marker(
         location = data['location'],
         tooltip= filename,
-        icon = folium.Icon(color='red'),
+        icon = folium.Icon(color=linecolr),
 
         popup = folium.Popup(
             f"<b>{filename}</b><br>{data['time']}<br>"
@@ -25,7 +30,7 @@ def plot(path):
 
     folium.PolyLine(
             locations = coords,
-            color = '#BF40BF',
+            color = linecolr,
             weight = 2
         ).add_to(map)
     
@@ -35,4 +40,4 @@ def plot(path):
 
 
 
-#plot('images')
+#plot('alaska','blue')

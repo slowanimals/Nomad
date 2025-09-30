@@ -1,3 +1,4 @@
 import render
 
-render.plot('images')
+render.plot('alaska','purple')
+#render.plot('yellowstone','blue')
