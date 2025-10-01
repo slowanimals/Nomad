@@ -1,9 +1,14 @@
 import render
+import folium
 
-def run(filename, color):
+def run(base_map, filename, color):
     try:
-        render.plot(filename, color)
+        render.plot(base_map,filename, color)
     except UserWarning:
-        render.plot(filename,'purple')
+        render.plot(base_map,filename,'purple')
+    base_map.save('multimap.html')
 
-run('yellowstone','blue')
+map = folium.Map(location = (34.0556, -117.1825), zoom_start = 4, tiles='Esri.WorldTopoMap')
+
+run(map,'alaska','purple')
+run(map,'yellowstone','blue')
