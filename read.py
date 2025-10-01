@@ -40,7 +40,7 @@ def get_exif_data(path):
             data[img.name] = {
                 'location' : [lat,long],
                 'time' : str(gps_time),
-                'path' : f'{img.name}'
+                'path' : f'{path}/{img.name}'
             }
 
     sorted_data = sorted(

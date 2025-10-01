@@ -14,9 +14,24 @@ def plot(base, folder, color):
         dest = places[i+1][1]['location'] #(lat,long)
         img_name = places[i][0]
         date = places[i][1]['time']
+        path = places[i][1]['path']
 
-        folium.Marker(orig, 
-                    tooltip = f'{img_name}\n{date}').add_to(group)
+        popup = f"""
+                <b> {img_name}</b><br>
+                <img src = "{path}" width = "200">
+                """ 
+        
+        icon = folium.CustomIcon(
+            path,
+            icon_size = (20,20)
+        )
+
+        folium.Marker(
+                    orig, 
+                    icon = icon,
+                    tooltip = img_name,
+                    popup = popup
+                    ).add_to(group)
         
         lat_mid = (orig[0] + dest[0]) / 2
         lon_mid = (orig[1] + dest[1]) / 2
@@ -55,7 +70,10 @@ def plot(base, folder, color):
     #last marker
     folium.Marker(
         location = places[-1][1]['location'],
-        tooltip= f'{img_name}\n{date}').add_to(group)
+        tooltip= f'{img_name}',
+        popup = popup,
+        icon = icon
+        ).add_to(group)
     
     group.add_to(base)
 

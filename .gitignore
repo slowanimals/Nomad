@@ -2,7 +2,12 @@ __pycache__
 .ipynb_checkpoints
 images
 .DS_Store
+cache
+hawaii
 friends
 alaska
 yellowstone
-cache
+basemap.geojson
+plants.csv
+pydeck.html
+test.json
