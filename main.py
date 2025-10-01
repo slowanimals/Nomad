@@ -4,6 +4,6 @@ def run(filename, color):
     try:
         render.plot(filename, color)
     except UserWarning:
-        render.ploy(filename,'purple')
+        render.plot(filename,'purple')
 
-run('alaska','blue')
+run('yellowstone','blue')
