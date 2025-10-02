@@ -13,16 +13,31 @@ def convert_to_degrees(value):
     return result
 
 #shrink images for thumbnail
-def make_thumbnail(img_path, out_folder = 'thumbs', size = (200,200)):
+def make_thumbnail(img_path, out_folder = 'thumbs', size = (142,200)):
     out_dir = Path(out_folder)
     out_dir.mkdir(exist_ok = True)
     img = Image.open(img_path)
 
-    #ImageOps.exif_transpose(img) #keep image from flipping
+    #ran into issue where vertical photos are flipped, here is a fix
+    try:
+        for orient in ExifTags.TAGS.keys():
+            if ExifTags.TAGS[orient] == 'Orientation':
+                break
+        exif = img.getexif()
+        
+        if exif[orient] == 3:
+            img = img.rotate(180, expand = True)
+        elif exif[orient] == 6:
+            img = img.rotate(270, expand = True)
+        elif exif[orient] == 8:
+            img = img.rotate(90, expand = True)
+    except (AttributeError, KeyError, IndexError):
+        pass
 
-    img = ImageOps.expand(img, border = 3, fill = 'white') #add border
+    img = ImageOps.expand(img, border = 200, fill = 'white') #add border
     
-    img.thumbnail(size)
+    img.thumbnail(size, Image.Resampling.LANCZOS)
+
     out_path = out_dir/Path(img_path).name
     img.save(out_path)
     return str(out_path)

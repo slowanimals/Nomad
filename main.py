@@ -12,7 +12,7 @@ map = folium.Map(location = (34.0556, -117.1825),
                  zoom_start = 4, 
                  tiles='Esri.WorldTopoMap',
                  no_wrap = True,
-                 max_zoom = 15, #inward
+                 max_zoom = 16, #inward
                  min_zoom = 2, #outward
                  max_bounds=True
                  )

@@ -28,14 +28,17 @@ def plot(base, folder, color):
         
         icon = folium.CustomIcon(
             thumb,
-            icon_size = (40,40)
+            icon_size = (40,40),
+            shadow_size = (40,40),
+            shadow_anchor=(10,40)
         )
 
         folium.Marker(
                     orig, 
                     icon = icon,
                     tooltip = img_name,
-                    popup = popup
+                    popup = popup,
+                    #opacity = 0.5
                     ).add_to(group)
         
         lat_mid = (orig[0] + dest[0]) / 2
@@ -53,24 +56,28 @@ def plot(base, folder, color):
             #if path doesn't begin at origin, fill in gap
             if path_coords[0] != orig:
                 folium.PolyLine((orig, path_coords[0]), 
-                            color = color, 
-                            weight = 3).add_to(group)
+                            color = color,
+                            tooltip = f'{folder}',
+                            weight = 4).add_to(group)
                 
             folium.PolyLine(path_coords, 
-                            color = color, 
-                            weight = 3).add_to(group)
+                            color = color,
+                            tooltip = f'{folder}',
+                            weight = 4).add_to(group)
             
             #if path doesn't go until destination, fill in gap
             if path_coords[-1] != dest:
                 folium.PolyLine((path_coords[-1], dest), 
-                            color = color, 
-                            weight = 3).add_to(group)
+                            color = color,
+                            tooltip = f'{folder}',
+                            weight = 4).add_to(group)
            
         except:
             #if unable to generate graph, create standard polylin
             folium.PolyLine(locations = [orig, dest], 
-                            color = color, 
-                            weight=3).add_to(group)
+                            color = color,
+                            tooltip = f'{folder}',
+                            weight=4).add_to(group)
     
 
     last_meta = places[-1][1]
@@ -83,7 +90,9 @@ def plot(base, folder, color):
         
     last_icon = folium.CustomIcon(
         last_meta['thumb'],
-        icon_size = (40,40)
+        icon_size = (40,40),
+        shadow_size = (40,40),
+        shadow_anchor=(20,30)
     )
     
     #last marker
@@ -91,7 +100,8 @@ def plot(base, folder, color):
         location = places[-1][1]['location'],
         tooltip= f'{last_name}',
         popup = last_popup,
-        icon = last_icon
+        icon = last_icon,
+        #opacity = 0.5
         ).add_to(group)
     
     group.add_to(base)
