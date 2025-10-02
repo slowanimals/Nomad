@@ -1,6 +1,7 @@
 import exifread
 from pathlib import Path
 from datetime import datetime
+from PIL import Image, ImageOps, ExifTags
 
 #convert gps coords to decimal
 def convert_to_degrees(value):
@@ -11,6 +12,21 @@ def convert_to_degrees(value):
     result = deg + (min/60.0) + (sec/3600.0)
     return result
 
+#shrink images for thumbnail
+def make_thumbnail(img_path, out_folder = 'thumbs', size = (200,200)):
+    out_dir = Path(out_folder)
+    out_dir.mkdir(exist_ok = True)
+    img = Image.open(img_path)
+
+    #ImageOps.exif_transpose(img) #keep image from flipping
+
+    img = ImageOps.expand(img, border = 3, fill = 'white') #add border
+    
+    img.thumbnail(size)
+    out_path = out_dir/Path(img_path).name
+    img.save(out_path)
+    return str(out_path)
+
 #extract exif matadata
 def get_exif_data(path):
     data = {}
@@ -20,13 +36,15 @@ def get_exif_data(path):
         if img.suffix.lower() in ['.png','.jpg','.jpeg','.webp']:
             with open(img, 'rb') as file:
                 tags = exifread.process_file(file)
-            
+
             gps_lat = tags.get('GPS GPSLatitude')
             gps_lat_ref = tags.get('GPS GPSLatitudeRef')
             gps_long = tags.get("GPS GPSLongitude")
             gps_long_ref = tags.get("GPS GPSLongitudeRef")
 
             gps_time = tags.get('EXIF DateTimeOriginal')
+            orient = str(tags.get('Image Orientation'))
+
 
             if gps_lat and gps_lat_ref and gps_long and gps_long_ref:
                 lat = convert_to_degrees(gps_lat)
@@ -40,7 +58,9 @@ def get_exif_data(path):
             data[img.name] = {
                 'location' : [lat,long],
                 'time' : str(gps_time),
-                'path' : f'{path}/{img.name}'
+                'path' : f'{path}/{img.name}',
+                'thumb' : make_thumbnail(f'{path}/{img.name}', out_folder = 'thumbs', size = (100,100)),
+                'orientation' : str(orient)
             }
 
     sorted_data = sorted(

@@ -1,6 +1,10 @@
 import osmnx as ox
 import read
 import folium
+from PIL import Image
+from pathlib import Path
+
+
 
 def plot(base, folder, color):
 
@@ -15,6 +19,7 @@ def plot(base, folder, color):
         img_name = places[i][0]
         date = places[i][1]['time']
         path = places[i][1]['path']
+        thumb = places[i][1]['thumb']
 
         popup = f"""
                 <b> {img_name}</b><br>
@@ -22,8 +27,8 @@ def plot(base, folder, color):
                 """ 
         
         icon = folium.CustomIcon(
-            path,
-            icon_size = (20,20)
+            thumb,
+            icon_size = (40,40)
         )
 
         folium.Marker(
@@ -67,12 +72,26 @@ def plot(base, folder, color):
                             color = color, 
                             weight=3).add_to(group)
     
+
+    last_meta = places[-1][1]
+    last_name = places[-1][0]
+
+    last_popup = f"""
+                <b> {last_name}</b><br>
+                <img src = "{last_meta['path']}" width = "200">
+                """ 
+        
+    last_icon = folium.CustomIcon(
+        last_meta['thumb'],
+        icon_size = (40,40)
+    )
+    
     #last marker
     folium.Marker(
         location = places[-1][1]['location'],
-        tooltip= f'{img_name}',
-        popup = popup,
-        icon = icon
+        tooltip= f'{last_name}',
+        popup = last_popup,
+        icon = last_icon
         ).add_to(group)
     
     group.add_to(base)
