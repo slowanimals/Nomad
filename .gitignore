@@ -1,3 +1,9 @@
+.web
+assets/external/
+.states
+__pycache__/
+*.db
+*.py[cod]
 __pycache__
 .ipynb_checkpoints
 images

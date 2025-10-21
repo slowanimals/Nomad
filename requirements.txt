@@ -3,3 +3,4 @@ folium
 exifreader
 pathlib
 osmnx
+reflex==0.8.15

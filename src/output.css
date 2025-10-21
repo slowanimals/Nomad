@@ -216,7 +216,7 @@
     display: grid;
   }
   .h-\[calc\(100vh-\)\] {
-    height: calc(100vh - );
+    height: calc(100vh - 0px);
   }
   .h-\[calc\(100vh-20px\)\] {
     height: calc(100vh - 20px);
