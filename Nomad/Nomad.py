@@ -19,12 +19,12 @@ def card_trip(trip_name):
     return rx.box(
         rx.text(trip_name, font_family = 'BBH Sans Bartle', color = 'black'), 
         bg = 'var(--gray-12)',
-        border_radius = '7px',
+        border_radius = '25px',
         text_align = 'center',
         padding = '10px',
         width = '90%',
         height = '10%',
-        _hover = {'background-color' : 'var(--gray-7)'},
+        _hover = {'background-color' : 'var(--gray-7)', 'cursor':'pointer'},
         box_shadow = '12px 15px 60px 1px var(--gray-11), inset 0.5px 0.5px 1px white, inset -0.5px -0.5px 1px white',
         ),
 
@@ -86,7 +86,6 @@ def index():
                 margin_bottom = "10px",
                 height = "97vh",
                 bg = 'var(--mauve-10)',
-                _hover = {'cursor':'pointer'},
                 box_shadow = '10px 10px 30px 4px var(--mauve-7), inset 0.5px 1px 3px white, inset -0.5px -1px 2px white',
                 overflow_y = 'auto',
                 
