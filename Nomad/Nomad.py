@@ -8,7 +8,28 @@ from rxconfig import config
 class State(rx.State):
     def run(self):
         import main
-        result = main.run
+        result = main.run()
+
+        
+class ForeachState(rx.State):
+    from pathlib import Path
+    trips: list[str] = [f.name for f in Path('Trips').iterdir()]
+    
+def card_trip(trip_name):
+    return rx.box(
+        rx.text(trip_name, font_family = 'BBH Sans Bartle', color = 'black'), 
+        bg = 'var(--gray-12)',
+        border_radius = '7px',
+        text_align = 'center',
+        padding = '10px',
+        width = '90%',
+        height = '10%',
+        _hover = {'background-color' : 'var(--gray-7)'},
+        box_shadow = '12px 15px 60px 1px var(--gray-11), inset 0.5px 0.5px 1px white, inset -0.5px -0.5px 1px white',
+        ),
+
+def gen_cardtrip():
+    rx.foreach(ForeachState.trips, card_trip)
 
 def index():
     return rx.box(
@@ -27,30 +48,34 @@ def index():
                 margin_top = '10px',
                 margin_left = '1.5%',
                 border_radius = '30px',
-                box_shadow = '10px 10px 50px 3px var(--gray-10), -10px -10px 50px 5px var(--gray-11)',
+                box_shadow = '3px 4px 40px 5px var(--gray-10), inset 0.3px 0.3px 2px white, inset -0.3px -0.3px 2px white',
 
             ),
             
             #dashboard
             rx.vstack(
-            #title
+                #title
                 rx.box(
                     rx.text("Nomad", 
                             font_family = 'Bytesized', 
                             color = "white",
                             size = '9',
                             ),
-                    bg = "var(--mauve-5)",
+                    bg = "var(--mauve-4)",
                     width = "50%",
                     padding = "3px",
-                    margin_top = "7px",
+                    margin_top = "15px",
+                    margin_bottom = '20px',
                     #border = "4px solid var(--gray-8)",
                     border_radius = "20px",
                     style = {'user-select': 'none', 'font-size' : '5vw'},
                     _hover={'cursor':'pointer', 'font-weight':'bold'},
-                    box_shadow = '3px 4px 60px 3px var(--gray-9), inset 0.3px 0.3px 2px white, inset -0.3px -0.3px 2px white',
-                    
+                    box_shadow = '3px 4px 60px 3px var(--gray-5), inset 0.3px 0.3px 2px white, inset -0.3px -0.3px 2px white',
                 ),
+                #trips
+                rx.foreach(ForeachState.trips, card_trip),
+                
+
                 width = "30%",
                 #border = "4px solid black",
                 border_radius = "30px",
@@ -60,15 +85,15 @@ def index():
                 margin_top = "10px",
                 margin_bottom = "10px",
                 height = "97vh",
-                bg = 'var(--mauve-11)',
+                bg = 'var(--mauve-10)',
                 _hover = {'cursor':'pointer'},
-                box_shadow = '12px 15px 30px 4px var(--mauve-7), inset 0.5px 1px 3px white, inset -0.5px -1px 2px white',
+                box_shadow = '10px 10px 30px 4px var(--mauve-7), inset 0.5px 1px 3px white, inset -0.5px -1px 2px white',
                 overflow_y = 'auto',
                 
             ),
             text_align = "center",
             justify = "end",
-            bg = "var(--mauve-8)",
+            bg = "var(--mauve-7)",
             height = "100vh",
             width = "100%",
             align = 'center',
@@ -82,7 +107,7 @@ def index():
 
 app = rx.App(
     stylesheets=[
-        "https://fonts.googleapis.com/css2?family=Bytesized&family=Coral+Pixels&family=Jacquard+12&family=Jersey+15&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap",
+        "https://fonts.googleapis.com/css2?family=BBH+Sans+Bartle&family=Bytesized&family=Coral+Pixels&family=Jacquard+12&family=Rubik+Mono+One&family=Staatliches&display=swap",
     ],
 )
 app.add_page(index)
