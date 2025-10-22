@@ -11,26 +11,32 @@ class State(rx.State):
         result = main.run
 
 def index():
-    return rx.vstack(
-        #logo
-        rx.box("Nomad", bg="gray.200", height="100px"),
-        
-        #map, dashboard
-        rx.hstack(
-            #map
+    return rx.box(
+        rx.vstack(
+        #title
             rx.box(
-                rx.html("<iframe src='/themap.html'></iframe>"), height = "500px", width = "100%"
+                rx.text("Nomad", font_family = 'Bytesized', size = '9', color = "black"),
+                bg = "var(--bronze-12)",
+                width = "100%",
+                padding = "10px",
+                border_bottom = "4px solid var(--gold-8)",
             ),
-            #dashboard
-            rx.box("dashboard area", bg="gray.100", width="30%"),
-            height = "100vh",
-            width = "100%",
-            align_itmes = "stretch"
+            text_align = "center",
+            align = "center",
+        
+            
         ),
+        bg = "var(--sand-2)",
         height = "100vh",
-        width = "100%",
+        width = "100%"
+        
+    ),
+   
+        
 
-    )
-
-app = rx.App()
+app = rx.App(
+    stylesheets=[
+        "https://fonts.googleapis.com/css2?family=Bytesized&family=Coral+Pixels&family=Jersey+15&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap",
+    ],
+)
 app.add_page(index)
