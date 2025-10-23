@@ -5,10 +5,35 @@ import reflex as rx
 from rxconfig import config
 
 
-class State(rx.State):
+class RunState(rx.State):
+    
     def run(self):
         import main
-        result = main.run()
+        import render
+        import folium
+        from pathlib import Path
+        import random
+
+        base_map = folium.Map(location = (34.0556, -117.1825), 
+                 zoom_start = 4, 
+                 tiles='Esri.WorldTopoMap',
+                 no_wrap = True,
+                 max_zoom = 16, #inward
+                 min_zoom = 2, #outward
+                 max_bounds=True
+                 )
+        colors = ['red', 'blue', 'green', 'orange', 'darkred', 'lightred', 'beige', 'darkblue', 'darkgreen', 'cadetblue', 'darkpurple', 'white', 'pink', 'lightblue', 'lightgreen', 'gray', 'black', 'lightgray']
+
+        for f in Path('Trips').iterdir():
+            try:
+                render.plot(base_map, f, colors[random.randint(0,len(colors)-1)])
+            except UserWarning:
+                render.plot(base_map, f, 'purple')
+        base_map.save('assets/themap.html')
+
+
+        
+        
 
         
 class ForeachState(rx.State):
@@ -72,6 +97,31 @@ def index():
                     _hover={'cursor':'pointer', 'font-weight':'bold'},
                     box_shadow = '3px 4px 60px 3px var(--gray-5), inset 0.3px 0.3px 2px white, inset -0.3px -0.3px 2px white',
                 ),
+                #generate map, add folder
+                rx.hstack(
+                    rx.button(rx.text("Generate Map", size = '6'),
+                              _hover = {'cursor':'pointer'},
+                              height = '100%',
+                              width = '50%',
+                              border_radius = '15px',
+                              on_click = RunState.run(),
+                              bg = 'var(--green-11)',
+                              ),
+                    rx.button(rx.text("Add Trip", size = '6'),
+                              _hover = {'cursor':'pointer'},
+                              height = '100%',
+                              width = '50%',
+                              border_radius = '15px',
+                              on_click = RunState.run(),
+                              bg = 'var(--blue-11)',
+                              ),
+                    border = '4px solid black',
+                    width = '90%',
+                    height = '10%',
+                    justify = 'center',
+                    margin_bottom = '20px'
+                ),
+    
                 #trips
                 rx.foreach(ForeachState.trips, card_trip),
                 

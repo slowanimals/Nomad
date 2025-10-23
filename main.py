@@ -2,11 +2,14 @@ import render
 import folium
 from pathlib import Path
 import os
+import random
+
 def run(base_map, filename, color):
     try:
         render.plot(base_map,filename, color)
     except UserWarning:
         render.plot(base_map,filename,'purple')
+        
     base_map.save('assets/multimap2.html')
 
 map = folium.Map(location = (34.0556, -117.1825), 
@@ -20,9 +23,10 @@ map = folium.Map(location = (34.0556, -117.1825),
 
 trips = Path(__file__).parent.resolve() / "Trips"
 
-count = 0
-colors = ['purple', 'blue', 'red', 'green']
+colors = ['red', 'blue', 'green', 'purple', 'orange', 'darkred', 'lightred', 'darkblue', 'darkgreen', 'cadetblue', 'darkpurple', 'white', 'pink', 'black']
 
-for f in trips.iterdir():
-    run(map,f,colors[count])
-    count += 1
+folders = [f.name.split('/')[-1] for f in Path('Trips').iterdir()]
+
+for fname in folders:
+    run(map, fname, colors[random.randint(0, len(colors)-1)])
+    
