@@ -4,6 +4,30 @@ import reflex as rx
 
 from rxconfig import config
 
+class UploadState(rx.State):
+    folder_name: str = ""
+    img: list[str]
+
+    async def handle_upload(self, files: list[rx.UploadFile]):
+        from pathlib import Path
+
+        if not self.folder_name:
+            print("No folder name set!")
+            return
+
+        out_dir = Path('assets/Trips') / self.folder_name
+        out_dir.mkdir(parents=True, exist_ok=True)
+
+        for file in files:
+            upload_data = await file.read()
+            outfile = out_dir / file.name
+
+            with outfile.open("wb") as file_object:
+                file_object.write(upload_data)
+
+            self.img.append(str(outfile))
+
+
 
 class RunState(rx.State):
     loading: bool = False
@@ -17,7 +41,6 @@ class RunState(rx.State):
         self.loading = False
         yield
 
-        
 class ForeachState(rx.State):
     from pathlib import Path
     trips: list[str] = [f.name for f in Path('assets/Trips').iterdir()]
