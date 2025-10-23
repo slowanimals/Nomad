@@ -17,7 +17,7 @@ class ForeachState(rx.State):
     
 def card_trip(trip_name):
     return rx.box(
-        rx.text(trip_name, font_family = 'BBH Sans Bartle', color = 'black'), 
+        rx.text(trip_name, font_family = 'BBH Sans Bartle', color = 'black', font_weight = 'bold', size = '5'), 
         bg = 'var(--gray-12)',
         border_radius = '25px',
         text_align = 'center',
@@ -106,7 +106,7 @@ def index():
 
 app = rx.App(
     stylesheets=[
-        "https://fonts.googleapis.com/css2?family=BBH+Sans+Bartle&family=Bytesized&family=Coral+Pixels&family=Jacquard+12&family=Rubik+Mono+One&family=Staatliches&display=swap",
+        "https://fonts.googleapis.com/css2?family=BBH+Sans+Bartle&family=Bytesized&family=Coral+Pixels&family=Jacquard+12&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik+Mono+One&family=Staatliches&display=swap"
     ],
 )
 app.add_page(index)
