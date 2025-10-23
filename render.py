@@ -5,7 +5,6 @@ from PIL import Image
 from pathlib import Path
 
 
-
 def plot(base, folder, color):
 
     group = folium.FeatureGroup(name=folder)
@@ -18,12 +17,13 @@ def plot(base, folder, color):
         dest = places[i+1][1]['location'] #(lat,long)
         img_name = places[i][0]
         date = places[i][1]['time']
-        path = places[i][1]['path']
+        path = places[i][1]['path'].replace('assets/', '')
         thumb = places[i][1]['thumb']
+        folder_name = folder.split('/')[-1]
 
         popup = f"""
-                <b> {img_name}</b><br>
-                <img src = "{path}" width = "200">
+                <b> {img_name} </b><br>
+                <img src = {path} width = "200">
                 """ 
         
         icon = folium.CustomIcon(
@@ -53,30 +53,32 @@ def plot(base, folder, color):
             sp = ox.shortest_path(G, orig_node, dest_node, weight = 'length')
             path_coords = [(G.nodes[n]['y'], G.nodes[n]['x']) for n in sp]
             
+            print(folder_name)
+
             #if path doesn't begin at origin, fill in gap
             if path_coords[0] != orig:
                 folium.PolyLine((orig, path_coords[0]), 
                             color = color,
-                            tooltip = f'{folder}',
+                            tooltip = f'{folder_name}',
                             weight = 4).add_to(group)
                 
             folium.PolyLine(path_coords, 
                             color = color,
-                            tooltip = f'{folder}',
+                            tooltip = f'{folder_name}',
                             weight = 4).add_to(group)
             
             #if path doesn't go until destination, fill in gap
             if path_coords[-1] != dest:
                 folium.PolyLine((path_coords[-1], dest), 
                             color = color,
-                            tooltip = f'{folder}',
+                            tooltip = f'{folder_name}',
                             weight = 4).add_to(group)
            
         except:
             #if unable to generate graph, create standard polylin
             folium.PolyLine(locations = [orig, dest], 
                             color = color,
-                            tooltip = f'{folder}',
+                            tooltip = f'{folder_name}',
                             weight=4).add_to(group)
     
 
@@ -85,7 +87,7 @@ def plot(base, folder, color):
 
     last_popup = f"""
                 <b> {last_name}</b><br>
-                <img src = "{last_meta['path']}" width = "200">
+                <img src = "{last_meta['path'].replace('assets/','')}" width = "200">
                 """ 
         
     last_icon = folium.CustomIcon(
@@ -107,3 +109,4 @@ def plot(base, folder, color):
     group.add_to(base)
 
     #map.save('testmap3.html')
+
