@@ -6,39 +6,21 @@ from rxconfig import config
 
 
 class RunState(rx.State):
+    loading: bool = False
     
     def run(self):
+        self.loading = True
+        yield
+
         import main
-        import render
-        import folium
-        from pathlib import Path
-        import random
-
-        base_map = folium.Map(location = (34.0556, -117.1825), 
-                 zoom_start = 4, 
-                 tiles='Esri.WorldTopoMap',
-                 no_wrap = True,
-                 max_zoom = 16, #inward
-                 min_zoom = 2, #outward
-                 max_bounds=True
-                 )
-        colors = ['red', 'blue', 'green', 'orange', 'darkred', 'lightred', 'beige', 'darkblue', 'darkgreen', 'cadetblue', 'darkpurple', 'white', 'pink', 'lightblue', 'lightgreen', 'gray', 'black', 'lightgray']
-
-        for f in Path('Trips').iterdir():
-            try:
-                render.plot(base_map, f, colors[random.randint(0,len(colors)-1)])
-            except UserWarning:
-                render.plot(base_map, f, 'purple')
-        base_map.save('assets/themap.html')
-
-
-        
-        
+        main.run()
+        self.loading = False
+        yield
 
         
 class ForeachState(rx.State):
     from pathlib import Path
-    trips: list[str] = [f.name for f in Path('Trips').iterdir()]
+    trips: list[str] = [f.name for f in Path('assets/Trips').iterdir()]
     
 def card_trip(trip_name):
     return rx.box(
@@ -51,6 +33,7 @@ def card_trip(trip_name):
         height = '10%',
         _hover = {'background-color' : 'var(--gray-7)', 'cursor':'pointer'},
         box_shadow = '12px 15px 60px 1px var(--gray-11), inset 0.5px 0.5px 1px white, inset -0.5px -0.5px 1px white',
+        style = {'user-select': 'none'},
         ),
 
 def gen_cardtrip():
@@ -61,12 +44,23 @@ def index():
         rx.hstack(
             #map
             rx.box(
-                rx.html("<iframe src='/themap.html' height='100%' width='100%' style='border:none; border-radius: 27px;'></iframe>",
+                rx.cond(
+                    RunState.loading,
+                    rx.center(
+                        rx.spinner(
+                            size = '3'
+                        ),
+                        #border = '4px solid black',
+                        height = '100%'
+                    ),
+                    rx.html("<iframe src='/themap.html' height='100%' width='100%' style='border:none; border-radius: 27px;'></iframe>",
                         height = '100%',
                         width = '100%',
                         display = 'block',
                         ),
-
+                ),
+                
+                
                 #border = '4px solid black',
                 width = '70%',
                 height = '90vh',
@@ -115,11 +109,12 @@ def index():
                               on_click = RunState.run(),
                               bg = 'var(--blue-11)',
                               ),
-                    border = '4px solid black',
+                    #border = '4px solid black',
                     width = '90%',
                     height = '10%',
                     justify = 'center',
-                    margin_bottom = '20px'
+                    margin_bottom = '20px',
+                    style = {'user-select': 'none'},
                 ),
     
                 #trips

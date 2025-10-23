@@ -5,15 +5,8 @@ import os
 import random
 import shutil
 
-def run(base_map, filename, color):
-    try:
-        render.plot(base_map,filename, color)
-    except UserWarning:
-        render.plot(base_map,filename,'purple')
-        
-    base_map.save('assets/themap.html')
-
-map = folium.Map(location = (34.0556, -117.1825), 
+def run():
+    base_map = folium.Map(location = (34.0556, -117.1825), 
                  zoom_start = 4, 
                  tiles='Esri.WorldTopoMap',
                  no_wrap = True,
@@ -22,18 +15,29 @@ map = folium.Map(location = (34.0556, -117.1825),
                  max_bounds=True
                  )
 
+    if os.path.exists('assets/thumbs'):
+        shutil.rmtree('assets/thumbs')
+    os.mkdir('assets/thumbs')
+
+    folder_path = Path('assets') / 'Trips'
+    folders = [f.name.split('/')[-1] for f in folder_path.iterdir()]
+    colors = ['red', 'blue', 'green', 'purple', 'orange', 'darkred', 'lightred', 'darkblue', 'darkgreen', 'cadetblue', 'darkpurple', 'white', 'pink', 'black']
+
+    for name in folders:
+        print(name)
+        try:
+            render.plot(base_map, f'assets/Trips/{name}', colors[random.randint(0, len(colors)-1)])
+        except UserWarning:
+            render.plot(base_map,f'assets/Trips/{name}','purple')
+        
+    base_map.save('assets/themap.html')
+
+
+
 #trips = Path(__file__).parent.resolve() / "Trips"
 
-colors = ['red', 'blue', 'green', 'purple', 'orange', 'darkred', 'lightred', 'darkblue', 'darkgreen', 'cadetblue', 'darkpurple', 'white', 'pink', 'black']
+#run()
 
-folder_path = Path('assets') / 'Trips'
-folders = [f.name.split('/')[-1] for f in folder_path.iterdir()]
-print(folders)
 
-if os.path.exists('assets/thumbs'):
-    shutil.rmtree('assets/thumbs')
-    
-os.mkdir('assets/thumbs')
-for name in folders:
-    run(map, f'assets/Trips/{name}', colors[random.randint(0, len(colors)-1)])
+
 
