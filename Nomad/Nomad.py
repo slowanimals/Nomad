@@ -45,6 +45,9 @@ class RunState(rx.State):
         process = multiprocessing.Process(target=main.run, daemon=False)
         process.start()
         
+        loop = asyncio.get_event_loop()
+        await loop.run_in_executor(None, process.join)
+
         async with self:
             self.loading = False
             yield
