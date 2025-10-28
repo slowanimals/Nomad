@@ -53,7 +53,7 @@ def plot(base, folder, color):
             sp = ox.shortest_path(G, orig_node, dest_node, weight = 'length')
             path_coords = [(G.nodes[n]['y'], G.nodes[n]['x']) for n in sp]
             
-            print(folder_name)
+            #print(folder_name)
 
             #if path doesn't begin at origin, fill in gap
             if path_coords[0] != orig:
@@ -74,8 +74,8 @@ def plot(base, folder, color):
                             tooltip = f'{folder_name}',
                             weight = 4).add_to(group)
            
-        except:
-            #if unable to generate graph, create standard polylin
+        except ImportError:
+            #if unable to generate graph, create standard polyline
             folium.PolyLine(locations = [orig, dest], 
                             color = color,
                             tooltip = f'{folder_name}',

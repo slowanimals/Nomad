@@ -32,14 +32,24 @@ class UploadState(rx.State):
 class RunState(rx.State):
     loading: bool = False
     
-    def run(self):
-        self.loading = True
-        yield
-
+    @rx.event(background=True)
+    async def run(self):
         import main
-        main.run()
-        self.loading = False
-        yield
+        import asyncio
+        import multiprocessing
+
+        async with self:
+            self.loading = True
+            yield
+
+        process = multiprocessing.Process(target=main.run, daemon=False)
+        process.start()
+        
+        async with self:
+            self.loading = False
+            yield
+        
+        
 
 class ForeachState(rx.State):
     from pathlib import Path
@@ -90,7 +100,7 @@ def index():
                 margin_top = '10px',
                 margin_left = '1.5%',
                 border_radius = '30px',
-                box_shadow = '3px 4px 40px 5px var(--gray-10), inset 0.3px 0.3px 2px white, inset -0.3px -0.3px 2px white',
+                box_shadow = '0px 0px 60px var(--gray-11), inset 0.3px 0.3px 2px white, inset -0.3px -0.3px 2px white',
 
             ),
             
@@ -112,25 +122,27 @@ def index():
                     border_radius = "20px",
                     style = {'user-select': 'none', 'font-size' : '5vw'},
                     _hover={'cursor':'pointer', 'font-weight':'bold'},
-                    box_shadow = '3px 4px 60px 3px var(--gray-5), inset 0.3px 0.3px 2px white, inset -0.3px -0.3px 2px white',
+                    box_shadow = '0px 0px 60px var(--gray-7), inset 0.3px 0.3px 2px var(--mauve-11), inset -0.3px -0.3px 2px var(--mauve-11)',
                 ),
                 #generate map, add folder
                 rx.hstack(
                     rx.button(rx.text("Generate Map", size = '6'),
-                              _hover = {'cursor':'pointer'},
+                              _hover = {'cursor':'pointer', 'background-color':'var(--green-10)'},
                               height = '100%',
                               width = '50%',
                               border_radius = '15px',
-                              on_click = RunState.run(),
+                              on_click = rx.event(RunState.run()),
                               bg = 'var(--green-11)',
+                              box_shadow = '0px 0px 10px var(--green-8), inset 0.3px 0.3px 2px white, inset -0.3px -0.3px 2px var(--green-11)',
                               ),
                     rx.button(rx.text("Add Trip", size = '6'),
-                              _hover = {'cursor':'pointer'},
+                              _hover = {'cursor':'pointer', 'background-color':'var(--blue-10)'},
                               height = '100%',
                               width = '50%',
                               border_radius = '15px',
                               on_click = RunState.run(),
                               bg = 'var(--blue-11)',
+                              box_shadow = '0px 0px 10px var(--blue-8), inset 0.3px 0.3px 2px white, inset -0.3px -0.3px 2px var(--blue-10)',
                               ),
                     #border = '4px solid black',
                     width = '90%',

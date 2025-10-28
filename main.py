@@ -21,22 +21,23 @@ def run():
 
     folder_path = Path('assets') / 'Trips'
     folders = [f.name.split('/')[-1] for f in folder_path.iterdir()]
-    colors = ['red', 'blue', 'green', 'purple', 'orange', 'darkred', 'lightred', 'darkblue', 'darkgreen', 'cadetblue', 'darkpurple', 'white', 'pink', 'black']
+    colors = ['red', 'blue', 'green', 'purple', 'orange', 'darkred', 'lightred', 'darkblue', 'darkgreen', 'cadetblue', 'darkpurple', 'pink', 'black']
 
+    print('starting...')
     for name in folders:
         print(name)
-        try:
-            render.plot(base_map, f'assets/Trips/{name}', colors[random.randint(0, len(colors)-1)])
-        except UserWarning:
-            render.plot(base_map,f'assets/Trips/{name}','purple')
-        
+        #try:
+        render.plot(base_map, f'assets/Trips/{name}', colors[random.randint(0, len(colors)-1)])
+        #except UserWarning:
+            #render.plot(base_map,f'assets/Trips/{name}','purple')
+    print('done!')
     base_map.save('assets/themap.html')
 
 
 
 #trips = Path(__file__).parent.resolve() / "Trips"
 
-#run()
+run()
 
 
 
