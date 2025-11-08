@@ -30,26 +30,79 @@ class UploadState(rx.State):
 
 
 class RunState(rx.State):
+    from typing import Any, Optional
     loading: bool = False
+    progress: float = 0.0
+    status: str = 'ready'
+    result: Optional[dict] = None
     
     @rx.event(background=True)
     async def run(self):
         import main
-        import asyncio
-        import multiprocessing
+        import multiprocessing as mp
+        from concurrent.futures import ProcessPoolExecutor
+        import time
 
         async with self:
             self.loading = True
+            self.progress = 0.0
+            self.status = "Starting…"
             yield
 
-        process = multiprocessing.Process(target=main.run, daemon=False)
-        process.start()
-        
-        loop = asyncio.get_event_loop()
-        await loop.run_in_executor(None, process.join)
+        # ----- 2. One-time multiprocessing manager (shared across runs) --
+        if not hasattr(RunState, "_mgr"):
+            RunState._mgr = mp.Manager()
+        result_q: mp.Queue = RunState._mgr.Queue()
+        prog_q: mp.Queue = RunState._mgr.Queue()
 
+        # ----- 3. Submit the worker ------------------------------------
+        def _worker():
+            try:
+                res = run_with_progress(prog_q)
+                result_q.put(("success", res))
+            except Exception as exc:
+                tb = traceback.format_exc()
+                result_q.put(("error", f"{exc}\n{tb}"))
+            finally:
+                result_q.put(("done", None))
+
+        with ProcessPoolExecutor(max_workers=1) as pool:
+            self._future = pool.submit(_worker)
+
+            # ----- 4. Poll loop (keeps Reflex alive) --------------------
+            while not self._future.done():
+                # ---- progress updates -----------------------------------
+                while not prog_q.empty():
+                    prog = prog_q.get_nowait()
+                    async with self:
+                        self.progress = float(prog)
+                        self.status = f"Processing… {prog:.1f}%"
+                        yield
+
+                # ---- keep the event alive --------------------------------
+                await rx.sleep(0.15)          # < 1 s → no timeout
+                async with self:
+                    yield
+
+            # ----- 5. Collect final result -------------------------------
+            while not result_q.empty():
+                typ, payload = result_q.get_nowait()
+                if typ == "success":
+                    async with self:
+                        self.result = payload
+                        self.status = "Complete!"
+                        self.progress = 100.0
+                        yield
+                elif typ == "error":
+                    async with self:
+                        self.status = f"Error: {payload}"
+                        self.progress = 0.0
+                        yield
+
+        # ----- 6. Clean up UI -------------------------------------------
         async with self:
             self.loading = False
+            self._future = None
             yield
         
         
