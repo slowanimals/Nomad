@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="map">
+        <iframe
+        src="/static/themap.html" height="100%" width="100%"
+        >
+        </iframe>
+    </div>
+
+    <div class="dash">
+        <div class="logo">
+            Nomad
+        </div>
+
+        <div class="buttons">
+            <a id="gen">
+                Generate
+            </a>
+            <a id="up">
+                Upload
+            </a>
+        </div>
+        
+    </div>
+{% endblock%}

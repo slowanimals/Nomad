@@ -31,13 +31,14 @@ def run():
         #except UserWarning:
             #render.plot(base_map,f'assets/Trips/{name}','purple')
     print('done!')
-    base_map.save('assets/themap.html')
+    base_map.save('static/themap.html')
 
 
 
 #trips = Path(__file__).parent.resolve() / "Trips"
 
-run()
+if __name__ == '__main__':
+    run()
 
 
 

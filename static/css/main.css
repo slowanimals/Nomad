@@ -1,0 +1,114 @@
+body{
+    display: flex;
+    gap: 2vw;
+    height: 100vh;
+    margin: 0;
+    background: radial-gradient(at 30% 20%, hsl(210, 67%, 82%), transparent 60%),
+                radial-gradient(at 75% 70%, hsl(210, 51%, 66%), transparent 60%),
+                linear-gradient(to bottom right, hsl(221, 62%, 55%), hsl(219, 94%, 59%));
+}
+
+iframe{
+    border: none;
+    padding: none;
+    margin: none;
+    border-radius: 25px;
+    box-shadow: 0px 0px 80px rgb(98, 117, 141), inset 0.3px 0.3px 1px white, inset -0.3px -0.3px 1px white;
+}
+
+.map{
+    width: 65%;
+    height: 85%;
+    align-self: center;
+    align-items: center;
+    align-content: center;
+    margin-left: 2vw;
+}
+
+.dash{
+    width: 28%;
+    height: 90%;
+    /* border: 4px white solid; */
+    border-radius: 25px;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: rgba(255, 255, 255, 0.12); /* ~12% white overlay */
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px); /* for Safari */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.logo{
+    font-family: 'Jacquard 12';
+    color: white;
+    width: 50%;
+    text-align: center;
+    font-size: 5vw;
+    user-select: none;
+    margin-top: 1vh;
+    border: 1px rgba(71, 71, 71, 0.722) solid;
+    border-radius: 25px;
+    padding: 1%;
+    background-color: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(30px);
+}
+.logo:hover{
+    font-weight:600;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+}
+
+.buttons{
+    display: flex;
+    flex-direction:row;
+    border: 0px solid black;
+    height: 13%;
+    width: 90%;
+    margin-top: 2%;
+    gap: 2%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+}
+
+a{
+    align-self: center;
+    justify-self: center;
+    border: 0px purple solid;
+    font-family: 'Roboto';
+    align-content: center;
+    padding: 0 0 0 0;
+    text-align: center;
+    border-radius: 25px;
+    color: white;
+    backdrop-filter: blur(30px);
+    user-select: none;
+}
+a:hover{
+    cursor: pointer;
+}
+#gen{
+    height: 90%;
+    font-size: 2vw;
+    padding: 0 2% 0 2%;
+    width: 50%;
+    background: rgba(11, 216, 4, 0.751);
+    box-shadow: 0px 0px 0px darkgreen, inset 0.3px 0.3px 2px lightgreen, inset -0.3px -0.3px 2px rgb(144, 238, 167);
+}
+#gen:hover{
+    background: rgba(11, 216, 4, 0.521);
+}
+#up{
+    height: 90%;
+    font-size: 2vw;
+    padding: 0 2% 0 2%;
+    width: 50%;
+    background: rgb(3, 102, 195);
+    box-shadow: 0px 0px 0px darkblue, inset 0.3px 0.3px 2px lightskyblue, inset -0.3px -0.3px 2px lightskyblue;
+}
+#up:hover{
+    background: rgba(3, 102, 195, 0.751);
+}
