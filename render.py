@@ -26,7 +26,6 @@ def getDist(folder, num):
 
 
 def plot(base, folder, color):
-    constants.DISTANCE = 0
     group = folium.FeatureGroup(name=folder)
 
     places = read.get_exif_data(folder) #5087, 5100 are in sitka
