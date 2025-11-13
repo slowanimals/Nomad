@@ -46,7 +46,7 @@ def dist():
 #trips = Path(__file__).parent.resolve() / "Trips"
 
 if __name__ == '__main__':
-    run()
-    #print(dist())
+    #run()
+    print(dist())
     #print(constants.DISTANCE)
     #folders()

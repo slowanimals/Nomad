@@ -15,7 +15,15 @@ def index():
     folders = [f.name.split('/')[-1] for f in folder_path.iterdir()]
     for i in folders:
         i = i[0].upper
-    return render_template('index.html',items=folders)
+    
+    
+    miles = round(main.dist() * 0.621371, 2) #convert to miles
+    covered = round((miles/57500000) * 100, 3) #57.5m is sq miles of earth's land
+    norm = (((math.log(1 + covered))/math.log(101)) * 100) * 5 #normalize value for prog bar
+
+    return render_template('index.html',items=folders, miles=miles, covered=covered, norm=norm)
+
+
 
 @app.route('/generate', methods=['POST'])
 def generate():
@@ -46,12 +54,8 @@ def delete():
 
     return redirect('/')
 
-@app.route('/dist', methods=['POST'])
-def totaldist():
-    miles = main.dist() * 0.621371 #convert to miles
-    covered = (miles/24901) * 100 #24901 is earth circumference
-    norm = (math.sqrt(covered)/10) * 100 #normalize value to show progress
-    return render_template('index.html',norm=norm)
+#@app.route('/dist', methods=['POST'])
+
 
 if __name__ == '__main__':
    app.run(port=8000, debug=True)
