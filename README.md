@@ -5,7 +5,7 @@ A new way to visualize your journeys across the world!
 
 ## Install (Note: This project will soon be a downloadable app)
 1. **Clone Repository**
-   git clone https://github.com/slowanimals/nomad.git
+   - git clone https://github.com/slowanimals/nomad.git
 2. **Create Virtual Environment**
 
    - Mac/Linux:
@@ -16,9 +16,9 @@ A new way to visualize your journeys across the world!
      venv\Scripts\activate
      
 3. **Install Dependencies**
-   pip install -r requirements.txt
+   - pip install -r requirements.txt
 4. **Run App**
-   python3 nomad.py
+   - python3 nomad.py
 
 ## Tech Stack:
 - OSMnx
