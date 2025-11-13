@@ -1,4 +1,5 @@
-assets/*
+static/Trips/*
+static/thumbs/*
 cache
 Reflex_Stuff
 tester.py
