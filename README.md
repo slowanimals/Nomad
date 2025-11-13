@@ -32,9 +32,8 @@ A new way to visualize your journeys across the world!
 - CSS3
 
 ## Description
-This application was largely inspired by Mark Twain's _The Innocents Abroad_, as I loved the idea of a private travel log detailing your adventures.
-Nomad plots images from your travels on a world map and shows you metrics from the images' metadata so that you can visualize how much of the world you've
-seen.
+Nomad uses images from your travels to visualize where you have been across the world. This application was largely inspired by Mark Twain's _The Innocents Abroad_, as I loved the idea of a private travel log detailing your adventures.
+
 
 ## Features
 - Rendering engine that
