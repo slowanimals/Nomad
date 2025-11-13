@@ -3,7 +3,25 @@ import read
 import folium
 from PIL import Image
 from pathlib import Path
+import math
 
+
+def convert2radians(latlon):
+    return [math.radians(latlon[0]), math.radians(latlon[1])]
+
+#haversine formula
+def getDist(orig,dest):
+    r = 6371 #earth radius
+    orig = convert2radians(orig)
+    dest = convert2radians(dest)
+
+    a = ( (math.sin((dest[0]-orig[0])/2))**2 ) + ( ((math.cos(orig[0]))*(math.cos(dest[0]))) * ((math.sin((dest[1]-orig[1])/2))**2 ) )
+    c = 2 * math.asin(math.sqrt(a))
+    result = r * c
+
+    return result
+
+    
 
 def plot(base, folder, color):
 
@@ -20,6 +38,8 @@ def plot(base, folder, color):
         path = places[i][1]['path'].replace('static/', '')
         thumb = places[i][1]['thumb']
         folder_name = folder.split('/')[-1]
+
+        places['dist'] += getDist(orig,dest)
 
         popup = f"""
                 <b> {img_name} </b><br>
@@ -49,6 +69,7 @@ def plot(base, folder, color):
             #find nearest node, switch lat & long
             orig_node = ox.nearest_nodes(G, orig[1], orig[0])
             dest_node = ox.nearest_nodes(G, dest[1], dest[0])
+
 
             sp = ox.shortest_path(G, orig_node, dest_node, weight = 'length')
             path_coords = [(G.nodes[n]['y'], G.nodes[n]['x']) for n in sp]

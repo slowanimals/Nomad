@@ -75,8 +75,10 @@ def get_exif_data(path):
                 'time' : str(gps_time),
                 'path' : f'{path}/{img.name}',
                 'thumb' : make_thumbnail(f'{path}/{img.name}', out_folder = 'static/thumbs', size = (100,100)),
-                'orientation' : str(orient)
+                'orientation' : str(orient),
             }
+            
+    data['dist'] = 0
 
     sorted_data = sorted(
         data.items(), 
@@ -85,7 +87,6 @@ def get_exif_data(path):
     )
 
     return sorted_data
-    
     
 
 #print(get_exif_data('images/'))
