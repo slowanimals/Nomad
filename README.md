@@ -4,18 +4,20 @@ A new way to visualize your journeys across the world!
 <img width="648" height="473" src="https://github.com/user-attachments/assets/9336fcb2-d760-4032-9615-fff20c9a0a0d">
 
 ## Install (Note: This project will soon be a downloadable app)
-**1. Clone Repository**
+1. **Clone Repository**
    git clone https://github.com/slowanimals/nomad.git
-**2. Create Virtual Environment**
+2. **Create Virtual Environment**
+
    - Mac/Linux:
      python3 -m venv venv
      source venv/bin/activate
    - Windows:
      python -m venv venv
      venv\Scripts\activate
-**3. Install Dependencies**
+     
+3. **Install Dependencies**
    pip install -r requirements.txt
-**4. Run App**
+4. **Run App**
    python3 nomad.py
 
 ## Tech Stack:
