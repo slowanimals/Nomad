@@ -41,8 +41,8 @@ Nomad uses images from your travels to visualize where you have been across the 
   - Draws polylines using OSMnx network graphs to approximate routes traveled 
 - Interactive Folium map
 - Dashboard that displays buttons, trips, and metrics
-
-Additionally, images turned into thumbnails via Pillow and plotted in their approximate location. 
+- Thumbnail generation via Pillow to show image previews
+   - Thumbnail folder is automatically deleted and repopulated whenever map is regenerating
 
 ## How to Use:
 - Click on "Upload" to upload any amount of images, then enter the folder name you want the images to go into
