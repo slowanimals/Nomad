@@ -1,7 +1,10 @@
-geopandas
 folium
-exifreader
 pathlib
-osmnx
-flask
-Pillow
+os
+random
+shutil
+pillow
+math
+exifread
+datetime
+flask 

@@ -4,7 +4,6 @@ import folium
 from PIL import Image
 from pathlib import Path
 import math
-import constants
 
 
 def convert2radians(latlon):
