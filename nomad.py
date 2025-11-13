@@ -3,6 +3,8 @@ import main
 from pathlib import Path
 import os
 import shutil
+import constants
+import math
 
 app = Flask(__name__)
 
@@ -43,6 +45,13 @@ def delete():
             print('Error deleting file')
 
     return redirect('/')
+
+@app.route('/dist', methods=['POST'])
+def totaldist():
+    miles = main.dist() * 0.621371 #convert to miles
+    covered = (miles/24901) * 100 #24901 is earth circumference
+    norm = (math.sqrt(covered)/10) * 100 #normalize value to show progress
+    return render_template('index.html',norm=norm)
 
 if __name__ == '__main__':
    app.run(port=8000, debug=True)

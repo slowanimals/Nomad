@@ -4,27 +4,30 @@ import folium
 from PIL import Image
 from pathlib import Path
 import math
+import constants
 
 
 def convert2radians(latlon):
     return [math.radians(latlon[0]), math.radians(latlon[1])]
 
 #haversine formula
-def getDist(orig,dest):
-    r = 6371 #earth radius
-    orig = convert2radians(orig)
-    dest = convert2radians(dest)
+def getDist(folder, num):
+    total = 0
+    data = read.get_exif_data(folder)
+    for i in range(len(data)-1):
+        r = 6371 #earth radius
+        orig = convert2radians(data[i][1]['location']) #(lat, long)
+        dest = convert2radians(data[i+1][1]['location']) #(lat,long)
 
-    a = ( (math.sin((dest[0]-orig[0])/2))**2 ) + ( ((math.cos(orig[0]))*(math.cos(dest[0]))) * ((math.sin((dest[1]-orig[1])/2))**2 ) )
-    c = 2 * math.asin(math.sqrt(a))
-    result = r * c
+        a = ( (math.sin((dest[0]-orig[0])/2))**2 ) + ( ((math.cos(orig[0]))*(math.cos(dest[0]))) * ((math.sin((dest[1]-orig[1])/2))**2 ) )
+        c = 2 * math.asin(math.sqrt(a))
+        total += r * c
+    return total
 
-    return result
 
-    
 
 def plot(base, folder, color):
-
+    constants.DISTANCE = 0
     group = folium.FeatureGroup(name=folder)
 
     places = read.get_exif_data(folder) #5087, 5100 are in sitka
@@ -38,8 +41,6 @@ def plot(base, folder, color):
         path = places[i][1]['path'].replace('static/', '')
         thumb = places[i][1]['thumb']
         folder_name = folder.split('/')[-1]
-
-        places['dist'] += getDist(orig,dest)
 
         popup = f"""
                 <b> {img_name} </b><br>
@@ -74,7 +75,7 @@ def plot(base, folder, color):
             sp = ox.shortest_path(G, orig_node, dest_node, weight = 'length')
             path_coords = [(G.nodes[n]['y'], G.nodes[n]['x']) for n in sp]
             
-            print(folder_name)
+            #print(folder_name)
 
             #if path doesn't begin at origin, fill in gap
             if path_coords[0] != orig:
@@ -130,4 +131,3 @@ def plot(base, folder, color):
     group.add_to(base)
 
     #map.save('testmap3.html')
-

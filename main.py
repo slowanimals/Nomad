@@ -4,6 +4,7 @@ from pathlib import Path
 import os
 import random
 import shutil
+import constants
 
 def run():
     base_map = folium.Map(location = (34.0556, -117.1825), 
@@ -33,18 +34,19 @@ def run():
     print('done!')
     base_map.save('static/themap.html')
 
-def folders():
+def dist():
+    dist = 0.0
     folder_path = Path('static') / 'Trips'
     folders = [f.name.split('/')[-1] for f in folder_path.iterdir()]
-
-    print(folders)
+    for f in folders:
+        dist += render.getDist(f'static/Trips/{f}', dist)
+    
+    return dist
 
 #trips = Path(__file__).parent.resolve() / "Trips"
 
 if __name__ == '__main__':
     run()
+    #print(dist())
+    #print(constants.DISTANCE)
     #folders()
-
-
-
-

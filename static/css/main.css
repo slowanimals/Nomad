@@ -39,7 +39,7 @@ iframe{
     backdrop-filter: blur(30px) saturate(115%);
     -webkit-backdrop-filter: blur(30px); /* for Safari */
     border: 1px solid rgba(255, 255, 255, 0.2);
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
 .logo{
@@ -136,7 +136,7 @@ button:active{
 .folders{
     border: 1px rgba(215, 214, 214, 0.376) solid;
     width: 90%;
-    height: 65%;
+    height: 50%;
     display: flex;
     flex-direction:column;
     border-radius: 25px;
@@ -153,7 +153,7 @@ button:active{
 .tripcard{
     font-family: 'Roboto';
     width: 90%;
-    height: 20%;
+    height: 25%;
     background-color: black;
     color: rgb(0, 0, 0);
     border-radius: 25px;
@@ -250,4 +250,29 @@ button:active{
     border-radius: 25px;
     text-align: center;
     border-color: black;
+}
+
+.distance{
+    border: 1px solid rgba(215, 214, 214, 0.635);
+    border-radius: 25px;
+    width: 90%;
+    height: 15%;
+    margin: 2%;
+    background-color:rgba(215, 214, 214, 0.171);
+    backdrop-filter: blur(30px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.milebar{
+    height: 10%;
+    width: 90%;
+    border: 1px solid black;
+    border-radius: 25px;
+}
+.fill{
+    height: 99%;
+    border-radius: 25px;
+    background-color: red;
 }

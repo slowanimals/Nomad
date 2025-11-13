@@ -77,8 +77,6 @@ def get_exif_data(path):
                 'thumb' : make_thumbnail(f'{path}/{img.name}', out_folder = 'static/thumbs', size = (100,100)),
                 'orientation' : str(orient),
             }
-            
-    data['dist'] = 0
 
     sorted_data = sorted(
         data.items(), 
