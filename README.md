@@ -1,7 +1,7 @@
 # Nomad
 A new way to visualize your journeys across the world!
 
-<img width="648" height="473" src="https://github.com/user-attachments/assets/9336fcb2-d760-4032-9615-fff20c9a0a0d">
+<img width="648" height="473" alt="Screenshot 2025-11-13 at 3 30 54 PM" src="https://github.com/user-attachments/assets/1b97f4fc-9e84-4669-8112-1749270f9ee9" />
 
 ## Install (Note: This project will soon be a downloadable app)
 1. **Clone Repository**
