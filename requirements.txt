@@ -8,3 +8,4 @@ math
 exifread
 datetime
 flask 
+functools

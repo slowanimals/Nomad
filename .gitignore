@@ -9,3 +9,4 @@ sandbox.ipynb
 .vscode
 __pycache__
 assets
+venv

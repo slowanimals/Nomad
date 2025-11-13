@@ -5,24 +5,27 @@ import os
 import shutil
 import constants
 import math
+from functools import lru_cache
 
 app = Flask(__name__)
 
+
+@lru_cache(maxsize=1)
+def dist_cache(folder_tuple):
+    miles = round(main.dist() * 0.621371, 2) #convert to miles
+    covered = round((miles/57500000) * 100, 3) #57.5m is sq miles of earth's land
+    norm = (((math.log(1 + covered))/math.log(101)) * 100) * 5 #normalize value for prog bar
+    return miles, covered, norm
 
 @app.route('/')
 def index():
     folder_path = Path('static') / 'Trips'
     folders = [f.name.split('/')[-1] for f in folder_path.iterdir()]
-    for i in folders:
-        i = i[0].upper
-    
-    
-    miles = round(main.dist() * 0.621371, 2) #convert to miles
-    covered = round((miles/57500000) * 100, 3) #57.5m is sq miles of earth's land
-    norm = (((math.log(1 + covered))/math.log(101)) * 100) * 5 #normalize value for prog bar
+
+    folder_tuple = tuple(folders)
+    miles, covered, norm = dist_cache(folder_tuple)
 
     return render_template('index.html',items=folders, miles=miles, covered=covered, norm=norm)
-
 
 
 @app.route('/generate', methods=['POST'])
