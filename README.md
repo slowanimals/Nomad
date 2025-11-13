@@ -9,11 +9,11 @@ A new way to visualize your journeys across the world!
 2. **Create Virtual Environment**
 
    - Mac/Linux:
-     python3 -m venv venv
-     source venv/bin/activate
+     - python3 -m venv venv
+     - source venv/bin/activate
    - Windows:
-     python -m venv venv
-     venv\Scripts\activate
+     - python -m venv venv
+     - venv\Scripts\activate
      
 3. **Install Dependencies**
    - pip install -r requirements.txt
