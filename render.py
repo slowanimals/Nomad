@@ -17,7 +17,7 @@ def plot(base, folder, color):
         dest = places[i+1][1]['location'] #(lat,long)
         img_name = places[i][0]
         date = places[i][1]['time']
-        path = places[i][1]['path'].replace('assets/', '')
+        path = places[i][1]['path'].replace('static/', '')
         thumb = places[i][1]['thumb']
         folder_name = folder.split('/')[-1]
 
@@ -87,7 +87,7 @@ def plot(base, folder, color):
 
     last_popup = f"""
                 <b> {last_name}</b><br>
-                <img src = "{last_meta['path'].replace('assets/','')}" width = "200">
+                <img src = "{last_meta['path'].replace('static/','')}" width = "200">
                 """ 
         
     last_icon = folium.CustomIcon(

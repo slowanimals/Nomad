@@ -15,11 +15,11 @@ def run():
                  max_bounds=True
                  )
 
-    if os.path.exists('assets/thumbs'):
-        shutil.rmtree('assets/thumbs')
-    os.mkdir('assets/thumbs')
+    if os.path.exists('static/thumbs'):
+        shutil.rmtree('static/thumbs')
+    os.mkdir('static/thumbs')
 
-    folder_path = Path('assets') / 'Trips'
+    folder_path = Path('static') / 'Trips'
     folders = [f.name.split('/')[-1] for f in folder_path.iterdir()]
     colors = ['red', 'blue', 'green', 'purple', 'orange', 'darkred', 'lightred', 'darkblue', 'darkgreen', 'cadetblue', 'darkpurple', 'pink', 'black']
 
@@ -27,18 +27,23 @@ def run():
     for name in folders:
         print(name)
         #try:
-        render.plot(base_map, f'assets/Trips/{name}', colors[random.randint(0, len(colors)-1)])
+        render.plot(base_map, f'static/Trips/{name}', colors[random.randint(0, len(colors)-1)])
         #except UserWarning:
             #render.plot(base_map,f'assets/Trips/{name}','purple')
     print('done!')
     base_map.save('static/themap.html')
 
+def folders():
+    folder_path = Path('static') / 'Trips'
+    folders = [f.name.split('/')[-1] for f in folder_path.iterdir()]
 
+    print(folders)
 
 #trips = Path(__file__).parent.resolve() / "Trips"
 
 if __name__ == '__main__':
     run()
+    #folders()
 
 
 

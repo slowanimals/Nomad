@@ -36,9 +36,10 @@ iframe{
     align-items: center;
 
     background: rgba(255, 255, 255, 0.12); /* ~12% white overlay */
-    backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px) saturate(115%);
     -webkit-backdrop-filter: blur(30px); /* for Safari */
     border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow-y: auto;
 }
 
 .logo{
@@ -53,12 +54,10 @@ iframe{
     border-radius: 25px;
     padding: 1%;
     background-color: rgba(0, 0, 0, 0.65);
-    backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px) saturation(50%);
 }
 .logo:hover{
-    font-weight:600;
-    cursor: pointer;
-    backdrop-filter: blur(5px);
+    backdrop-filter: saturation(1%)
 }
 
 .buttons{
@@ -74,10 +73,26 @@ iframe{
     text-align: center;
 }
 
-a{
+.buttons form{
     align-self: center;
     justify-self: center;
     border: 0px purple solid;
+    align-content: center;
+    padding: 0 0 0 0;
+    text-align: center;
+    border-radius: 25px;
+    color: white;
+    backdrop-filter: blur(30px);
+    user-select: none;
+    height: 80%;
+    width: 50%;
+}
+.buttons form:hover{
+    cursor: pointer;
+}
+button{
+    align-self: center;
+    justify-self: center;
     font-family: 'Roboto';
     align-content: center;
     padding: 0 0 0 0;
@@ -86,29 +101,152 @@ a{
     color: white;
     backdrop-filter: blur(30px);
     user-select: none;
+    height: 100%;
+    width: 100%;
+    border: none;
 }
-a:hover{
-    cursor: pointer;
+button:hover{
+    cursor:pointer;
 }
+button:active{
+    opacity: 0.7;
+}
+
 #gen{
-    height: 90%;
     font-size: 2vw;
     padding: 0 2% 0 2%;
-    width: 50%;
     background: rgba(11, 216, 4, 0.751);
-    box-shadow: 0px 0px 0px darkgreen, inset 0.3px 0.3px 2px lightgreen, inset -0.3px -0.3px 2px rgb(144, 238, 167);
+    box-shadow: 0px 0px 0px darkgreen, inset 0.3px 0.3px 3px lightgreen, inset -0.3px -0.3px 2px rgb(144, 238, 167);
 }
 #gen:hover{
     background: rgba(11, 216, 4, 0.521);
 }
 #up{
-    height: 90%;
     font-size: 2vw;
     padding: 0 2% 0 2%;
     width: 50%;
-    background: rgb(3, 102, 195);
-    box-shadow: 0px 0px 0px darkblue, inset 0.3px 0.3px 2px lightskyblue, inset -0.3px -0.3px 2px lightskyblue;
+    height: 80%;
+    background: rgb(0, 60, 255);
+    box-shadow: 0px 0px 0px darkblue, inset 0.3px 0.3px 3px rgb(165, 219, 253), inset -0.3px -0.3px 2px rgb(163, 220, 255);
 }
 #up:hover{
-    background: rgba(3, 102, 195, 0.751);
+    background: rgba(0, 60, 255, 0.751);
+}
+
+.folders{
+    border: 1px rgba(215, 214, 214, 0.376) solid;
+    width: 90%;
+    height: 65%;
+    display: flex;
+    flex-direction:column;
+    border-radius: 25px;
+    background-color: rgba(215, 214, 214, 0.171);
+    backdrop-filter: blur(70px);
+    margin-top: 2%;
+    align-items: center;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    gap: 2%;
+    overflow-y:auto;
+}
+
+.tripcard{
+    font-family: 'Roboto';
+    width: 90%;
+    height: 20%;
+    background-color: black;
+    color: rgb(0, 0, 0);
+    border-radius: 25px;
+    background-color: rgba(234, 247, 255, 0.378);
+    backdrop-filter: blur(30px);
+    box-shadow: inset 0.3px 0.3px 7px rgb(165, 219, 253), inset -0.3px -0.3px 7px rgb(163, 220, 255);
+    text-align: left;
+    user-select: none;
+    align-content: center;
+    display: flex;
+    flex-direction: row;;
+}
+.tripcard #name:hover{
+    opacity: 0.6;
+    cursor: pointer;
+    transform: scale(1.03);
+}
+#name{
+    justify-self: left;
+    font-size: 2vw;
+    font-weight: bold;
+    margin-left: 5%;
+    width: 80%;
+}
+#del{
+    width: 15%;
+    height: 100%;
+}
+#delbut{
+    background-color: rgba(239, 4, 4, 0.895);
+    box-shadow: inset 0.3px 0.3px 2px rgb(173, 5, 5), inset -0.3px -0.3px 2px rgb(156, 4, 4);
+}
+#delbut:hover{
+    opacity: 0.6;
+}
+.modal{
+    display: none;
+    position: fixed;
+    z-index:1000;
+    width: 50%;
+    height: 50%;
+    align-self: center;
+    left: 20%;
+    background-color: rgba(158, 158, 158, 0.581);
+    border-radius: 25px;
+    border: 1px solid rgba(128, 128, 128, 0.72);
+    backdrop-filter: blur(20px);
+    
+}
+
+.modal-content{
+    text-align: center;
+    align-items: center;
+    justify-items: center;
+    font-family: 'Roboto';
+    color: white;
+    font-size: 2vw;
+    user-select: none;
+}
+.close{
+    float: right;
+    font-size: 2vw;
+    cursor: pointer;
+    user-select: none;
+    margin-right: 2%;
+    margin-top: -2%;
+    color: white;
+}
+.close:hover{
+    color: black;
+}
+
+#modalup{
+    font-size: 2vw;
+    padding: 0 2% 0 2%;
+    width: 50%;
+    height: 9vh;
+    background: rgb(146, 172, 255);
+    box-shadow: 0px 0px 0px darkblue, inset 0.3px 0.3px 3px rgb(165, 219, 253), inset -0.3px -0.3px 2px rgb(163, 220, 255);
+    border-radius: 25px;
+    border: none;
+    margin-top: 10%;
+    color: white;
+}
+#modalup:hover{
+    opacity:0.8;
+    cursor: pointer;
+}
+
+#foldername{
+    height: 5vh;
+    width: 10vw;
+    border-radius: 25px;
+    text-align: center;
+    border-color: black;
 }
