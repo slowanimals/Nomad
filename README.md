@@ -19,6 +19,7 @@ A new way to visualize your journeys across the world!
    - pip install -r requirements.txt
 4. **Run App**
    - python3 nomad.py
+      - Go to the localhost link outputted in terminal (ex: Running on http://127.0.0.1:8000) 
 
 ## Tech Stack:
 - OSMnx
