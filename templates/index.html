@@ -34,17 +34,31 @@
     }
 
     // Close modal if user clicks outside of it
-    window.onclick = function(event) {
+    document.addEventListener('click',function(event){
         const modal = document.getElementById('uploadModal');
         if (event.target == modal) {
             closeUploadModal();
         }
+    });
+
+    //show loading screen
+    function showLoading(){
+        document.getElementById('loadingOverlay').style.display='flex';
+        document.getElementById('mapframe').style.opacity=0.3;
+    }
+    window.onload = function(){
+        document.getElementById('loadingOverlay').style.display='none';
+        document.getElementById('mapframe').style.opacity=1;
     }
 </script>
 
     <div class="map">
-        
-        <iframe src="/static/themap.html" height="100%" width="100%"></iframe>
+        <!--loading screen-->
+        <div id="loadingOverlay">
+            <img src="/static/assets/earthload.webp">
+        </div>
+
+        <iframe id='mapframe' src="/static/themap.html" height="100%" width="100%"></iframe>
         
     </div>
 
@@ -54,7 +68,7 @@
         </div>
 
         <div class="buttons">
-            <form action="/generate" method="POST" >
+            <form action="/generate" method="POST" onsubmit="showLoading()">
                 <button id="gen" type="submit">Generate</button>
             </form>
 
