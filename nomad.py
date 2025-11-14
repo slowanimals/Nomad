@@ -6,6 +6,7 @@ import shutil
 import constants
 import math
 from functools import lru_cache
+from pyfladesk import init_gui
 
 app = Flask(__name__)
 
@@ -13,7 +14,7 @@ app = Flask(__name__)
 @lru_cache(maxsize=1)
 def dist_cache(folder_tuple):
     miles = round(main.dist() * 0.621371, 2) #convert to miles
-    covered = round((miles/57500000) * 100, 3) #57.5m is sq miles of earth's land
+    covered = round(((miles*100)/57500000), 5) #57.5m is sq miles of earth's land
     norm = (((math.log(1 + covered))/math.log(101)) * 100) * 5 #normalize value for prog bar
     return miles, covered, norm
 
@@ -21,6 +22,8 @@ def dist_cache(folder_tuple):
 def index():
     folder_path = Path('static') / 'Trips'
     folders = [f.name.split('/')[-1] for f in folder_path.iterdir()]
+    folders.remove('.gitkeep')
+    folders = sorted(folders,reverse=False)
 
     folder_tuple = tuple(folders)
     miles, covered, norm = dist_cache(folder_tuple)
@@ -62,6 +65,7 @@ def delete():
 
 if __name__ == '__main__':
    app.run(port=8000, debug=True)
+   #init_gui(app)
 
 
 

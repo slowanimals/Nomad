@@ -9,3 +9,4 @@ exifread
 datetime
 flask 
 functools
+pyfladesk

@@ -22,6 +22,7 @@ def run():
 
     folder_path = Path('static') / 'Trips'
     folders = [f.name.split('/')[-1] for f in folder_path.iterdir()]
+    folders.remove('.gitkeep')
     colors = ['red', 'blue', 'green', 'purple', 'orange', 'darkred', 'lightred', 'darkblue', 'darkgreen', 'cadetblue', 'darkpurple', 'pink', 'black']
 
     print('starting...')
@@ -38,6 +39,7 @@ def dist():
     dist = 0.0
     folder_path = Path('static') / 'Trips'
     folders = [f.name.split('/')[-1] for f in folder_path.iterdir()]
+    folders.remove('.gitkeep')
     for f in folders:
         dist += render.getDist(f'static/Trips/{f}', dist)
     
