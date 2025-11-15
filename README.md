@@ -33,8 +33,9 @@ A new way to visualize your journeys across the world!
 - HTML5
 - CSS3
 
-## Description
-Nomad uses images from your travels to visualize where you have been across the world. This application was largely inspired by Mark Twain's _The Innocents Abroad_, as I loved the idea of a private travel log detailing your adventures.
+## Idea
+I wanted to build a desktop app that uses images from your travels to help visualize all of your trips on one map. I also wanted to make a system that can rebuild routes from images
+as opposed to needing exact real-time location data.
 
 
 ## Features
