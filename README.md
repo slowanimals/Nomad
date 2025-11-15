@@ -29,6 +29,7 @@ A new way to visualize your journeys across the world!
 - Pillow
 - Python
 - Flask
+- PyFladesk
 - HTML5
 - CSS3
 
