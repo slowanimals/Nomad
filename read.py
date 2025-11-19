@@ -1,5 +1,5 @@
 import exifread
-import datetime
+from datetime import datetime
 from pathlib import Path
 from PIL import Image, ExifTags, ImageOps
 
@@ -87,30 +87,3 @@ def get_exif_data(path):
     )
 
     return sorted_data
-    
-
-#print(get_exif_data('images/'))
-
-#extract exif matadata
-def get_exif_data(path):
-    with open(path, 'rb') as file:
-        tags = exifread.process_file(file)
-    
-    gps_lat = tags.get('GPS GPSLatitude')
-    gps_lat_ref = tags.get('GPS GPSLatitudeRef')
-    gps_long = tags.get("GPS GPSLongitude")
-    gps_long_ref = tags.get("GPS GPSLongitudeRef")
-
-    if gps_lat and gps_lat_ref and gps_long and gps_long_ref:
-        lat = convert_to_degrees(gps_lat)
-        long = convert_to_degrees(gps_long)
-
-        if gps_lat_ref.values[0] != 'N':
-            lat = -lat
-        if gps_long_ref.values[0] != 'E':
-            long = -long
-    
-    return [long, lat]
-
-res = get_exif_data('testimg.jpg')
-print(res)

@@ -84,8 +84,8 @@ def delcache():
     return redirect('/')
 
 if __name__ == '__main__':
-   #app.run(port=8000, debug=True)
-   init_gui(app)
+   app.run(port=8000, debug=True)
+   #init_gui(app)
 
 
 
