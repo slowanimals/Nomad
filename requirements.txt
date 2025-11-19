@@ -1,6 +1,6 @@
+flask 
 folium
 pillow
 exifread
-flask 
-pyfladesk
 osmnx
+gunicorn
