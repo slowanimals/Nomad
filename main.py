@@ -1,9 +1,9 @@
-import render
 import folium
 from pathlib import Path
 import os
 import random
 import shutil
+import render
 
 def run():
     base_map = folium.Map(location = (34.0556, -117.1825), 
@@ -18,6 +18,7 @@ def run():
     if os.path.exists('static/thumbs'):
         shutil.rmtree('static/thumbs')
     os.mkdir('static/thumbs')
+
 
     folder_path = Path('static') / 'Trips'
     folders = [f.name.split('/')[-1] for f in folder_path.iterdir()]

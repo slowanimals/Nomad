@@ -46,6 +46,8 @@ def make_thumbnail(img_path, out_folder = 'thumbs', size = (142,200)):
 def get_exif_data(path):
     data = {}
     folder = Path(path)
+    if folder == '.DS_Store':
+        pass
 
     for img in folder.iterdir():
         if img.suffix.lower() in ['.png','.jpg','.jpeg','.webp']:
