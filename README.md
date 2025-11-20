@@ -3,7 +3,7 @@ A new way to visualize your journeys across the world!
 
 <img width="648" height="473" alt="Screenshot 2025-11-13 at 3 30 54 PM" src="https://github.com/user-attachments/assets/1b97f4fc-9e84-4669-8112-1749270f9ee9" />
 
-## Installation (Note: This project will soon be a downloadable app)
+## Installation
 1. **Clone Repository**
    - git clone https://github.com/slowanimals/nomad.git
 2. **Create Virtual Environment**
@@ -19,13 +19,15 @@ A new way to visualize your journeys across the world!
    - pip install -r requirements.txt
 4. **Run App**
    - python3 nomad.py
-      - Go to the localhost link outputted in terminal (ex: Running on http://127.0.0.1:8000) 
+      - Go to the localhost link outputted in terminal (ex: Running on http://127.0.0.1:8000)
+5. **_(Optional)_ Load in a Desktop Window (via PyFlaDesk)**
+   - Scroll to the bottom of the file **app.py** until you see the line `app.run(port=8000, debug=True)`
+      - Comment it out and then uncomment the line `init_gui(app)` to open Nomad in a separate desktop window
 
 ## Tech Stack
 - OSMnx
 - Folium
 - Exifread
-- Pathlib
 - Pillow
 - Python
 - Flask
@@ -33,10 +35,17 @@ A new way to visualize your journeys across the world!
 - HTML5
 - CSS3
 
-## Idea
-I wanted to build a desktop app that uses images from your travels to help visualize all of your trips on one map. I also wanted to make a system that can rebuild routes from images
-as opposed to needing exact real-time location data.
+## How to Use:
+- Click on **Upload** to upload any amount of images, then enter the name of the folder you want the images to go into
+  - Entering the name of an existing folder will place the images in that folder
+- Click on **Generate** to run the plotting engine after making any changes
+  - OSMnx takes a bit of time to load new graph data, so the first generation attempt might take about a minute
+- Click on the **Delete** button next to trip names in order to delete the folder
+- Click **Clear Cache** to delete the cache
+   - The cache saves OSMNx graph data, so generating after deleting the cache might take longer
 
+## Idea
+I wanted to build a desktop app that uses images from your travels to help visualize all of your trips on one map. I also wanted to learn how network graphs work for mapping apps, so I learned how to work with OSMnx to work with coordinates in order to construct visual paths.
 
 ## Features
 - Rendering engine that
@@ -47,18 +56,12 @@ as opposed to needing exact real-time location data.
 - Thumbnail generation via Pillow to show image previews
    - Thumbnail folder is automatically deleted and repopulated whenever map is regenerating
 
-## How to Use:
-- Click on "Upload" to upload any amount of images, then enter the folder name you want the images to go into
-  - Entering the name of an existing folder will place the images in that folder
-- Click on "Generate" to run the plotting engine after making any changes
-  - The engine is heavy, so it may take a minute or so for the new map to generate
-- Click on the "Delete" button next to trip names in order to delete the folder
-
 ## Features I'm Working On
 - Toggle custom colors for polylines
 - Enter descriptions for trips
 - Edit trip names
 - Update images within trips
 - Map type customization
+
 
 
