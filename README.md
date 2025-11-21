@@ -24,17 +24,6 @@ A new way to visualize your journeys across the world!
    - Scroll to the bottom of the file **app.py** until you see the line `app.run(port=8000, debug=True)`
       - Comment it out and then uncomment the line `init_gui(app)` to open Nomad in a separate desktop window
 
-## Tech Stack
-- OSMnx
-- Folium
-- Exifread
-- Pillow
-- Python
-- Flask
-- PyFladesk
-- HTML5
-- CSS3
-
 ## How to Use:
 - Click on **Upload** to upload any amount of images, then enter the name of the folder you want the images to go into
   - Entering the name of an existing folder will place the images in that folder
@@ -43,9 +32,6 @@ A new way to visualize your journeys across the world!
 - Click on **Delete** next to any trip name in order to delete its folder
 - Click on **Clear Cache** to delete the cache
    - The cache saves OSMNx graph data, so generating after deleting the cache might take longer
-
-## Idea
-I wanted to build a desktop app that uses images from your travels to help visualize all of your trips on one map. I also wanted to learn how network graphs work for mapping apps, so I learned how to work with OSMnx to work with coordinates in order to construct visual paths.
 
 ## Features
 - Rendering engine that
@@ -56,6 +42,20 @@ I wanted to build a desktop app that uses images from your travels to help visua
 - Thumbnail generation via Pillow to show image previews
    - Thumbnail folder is automatically deleted and repopulated whenever map is regenerating
 
+## Idea
+I wanted to build a desktop app that uses images from your travels to help visualize all of your trips on one map. I also wanted to learn how network graphs work for mapping apps, so I learned how to work with OSMnx to work with coordinates in order to construct visual paths.
+
+## Tech Stack
+- OSMnx
+- Folium
+- Exifread
+- Pillow
+- Python
+- Flask
+- PyFladesk
+- HTML5
+- CSS3
+  
 ## Features I'm Working On
 - Toggle custom colors for polylines
 - Enter descriptions for trips
