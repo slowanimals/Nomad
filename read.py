@@ -38,7 +38,7 @@ def make_thumbnail(img_path, out_folder = 'thumbs', size = (142,200)):
     
     img.thumbnail(size, Image.Resampling.LANCZOS)
 
-    out_path = out_dir/Path(img_path).name
+    out_path = out_dir/Path(img_path).name 
     img.save(out_path)
     return str(out_path)
 
@@ -72,7 +72,7 @@ def get_exif_data(path):
                 if gps_long_ref.values[0] != 'E':
                     long = -long
             else:
-                continue
+                continue #if no lon/lat, just skip the photo altogether
             
             data[img.name] = {
                 'location' : [lat,long],

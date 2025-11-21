@@ -83,7 +83,7 @@ def delcache():
 
 if __name__ == '__main__':
    app.run(port=8000, debug=True)
-   #init_gui(app)
+   #init_gui(app) #uncomment this for desktop gui
 
 
 

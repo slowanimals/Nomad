@@ -28,10 +28,8 @@ def run():
     print('starting...')
     for name in folders:
         print(name)
-        #try:
         render.plot(base_map, f'static/Trips/{name}', colors[random.randint(0, len(colors)-1)])
-        #except UserWarning:
-            #render.plot(base_map,f'assets/Trips/{name}','purple')
+
     print('done!')
     base_map.save('static/themap.html')
 
@@ -44,11 +42,3 @@ def dist():
         dist += render.getDist(f'static/Trips/{f}', dist)
     
     return dist
-
-#trips = Path(__file__).parent.resolve() / "Trips"
-
-#if __name__ == '__main__':
-#    run()
-#     #print(dist())
-#     #print(constants.DISTANCE)
-#     #folders()

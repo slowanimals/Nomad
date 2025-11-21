@@ -1,2 +1,3 @@
-'NOMAD FLASK APPLICATION'
+"NOMAD FLASK APPLICATION"
 __version__ = '1.0.0'
+__author__ = 'KAUSH MENDONCA'

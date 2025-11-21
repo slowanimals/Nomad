@@ -82,7 +82,6 @@ def plot(base, folder, color):
         lat_mid = (orig[0] + dest[0]) / 2
         lon_mid = (orig[1] + dest[1]) / 2
         
-        print(folder_name) ##
         try:
             G = get_or_cache(lat_mid,lon_mid)
             
@@ -95,8 +94,7 @@ def plot(base, folder, color):
             sp = ox.shortest_path(G, orig_node, dest_node, weight = 'length')
             path_coords = [(G.nodes[n]['y'], G.nodes[n]['x']) for n in sp]
             
-            print(folder_name, path_coords) ##
-            #print(folder_name) ##
+            print(folder_name, path_coords) #debug
 
             #if path doesn't begin at origin, fill in gap
             if path_coords[0] != orig:
@@ -123,7 +121,7 @@ def plot(base, folder, color):
                             color = color,
                             tooltip = f'{folder_name}',
                             weight=4).add_to(group)
-            print(f'{folder_name}, skipped osmnx') ##
+            print(f'{folder_name}, skipped osmnx') #debug
     
 
     last_meta = places[-1][1]
