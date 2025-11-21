@@ -41,7 +41,7 @@ A new way to visualize your journeys across the world!
 - Dashboard that displays buttons, trips, and metrics
 - Thumbnail generation via Pillow to show image previews
    - Thumbnail folder is automatically deleted and repopulated whenever map is regenerating
-- Cache that encodes/decodes graph data in binary for efficient plotting
+- Cache that encodes graph data in binary for efficient plotting
 
 ## Idea
 I wanted to build a desktop app that uses images from your travels to help visualize all of your trips on one map. I also wanted to learn how network graphs work for mapping apps, so I learned how to work with OSMnx to work with coordinates in order to construct visual paths.
