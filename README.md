@@ -44,7 +44,7 @@ A new way to visualize your journeys across the world!
 - Cache that encodes graph data in binary for efficient plotting
 
 ## Idea
-I wanted to build a desktop app that uses images from your travels to help visualize all of your trips on one map. I also wanted to learn how network graphs work for mapping apps, so I learned how to work with OSMnx to work with coordinates in order to construct visual paths.
+I wanted to build a desktop app that uses images from your travels to help visualize all of your trips on one map. I also wanted to learn how network graphs work for routing in mapping apps, so I learned the OSMnx library in order to work with coordinates for constructing visual paths.
 
 ## Tech Stack
 - OSMnx
