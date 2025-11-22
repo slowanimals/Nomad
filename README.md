@@ -5,20 +5,19 @@ A new way to visualize your journeys across the world!
 
 ## Installation
 1. **Clone Repository**
-   - git clone https://github.com/slowanimals/nomad.git
+   - `git clone https://github.com/slowanimals/nomad.git`
 2. **Create Virtual Environment**
-
    - Mac/Linux:
-     - python3 -m venv venv
-     - source venv/bin/activate
+     - `python3 -m venv venv`
+     - `source venv/bin/activate`
    - Windows:
-     - python -m venv venv
-     - venv\Scripts\activate
+     - `python -m venv venv`
+     - `venv\Scripts\activate`
      
 3. **Install Dependencies**
-   - pip install -r requirements.txt
+   - `pip install -r requirements.txt`
 4. **Run App**
-   - python3 nomad.py
+   - `python3 nomad.py`
       - Go to the localhost link outputted in terminal (ex: Running on http://127.0.0.1:8000)
 5. **_(Optional)_ Load in a Desktop Window (via PyFlaDesk)**
    - Scroll to the bottom of the file **app.py** until you see the line `app.run(port=8000, debug=True)`
