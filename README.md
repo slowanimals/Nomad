@@ -22,7 +22,7 @@ A new way to visualize your journeys across the world!
    - `python3 nomad.py`
       - Go to the localhost link outputted in terminal (ex: `Running on http://127.0.0.1:8000`)
 6. **Terminate App (LocalHost)**
-  - Press `Ctrl + C`  
+     - Press `Ctrl + C`  
 7. **_(Optional)_ Load in a Desktop Window (via PyFlaDesk)**
    - Scroll to the bottom of the file **app.py** until you see the line `app.run(port=8000, debug=True)`
       - Comment it out and then uncomment the line `init_gui(app)` to open Nomad in a separate desktop window
