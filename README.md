@@ -30,6 +30,7 @@ A new way to visualize your journeys across the world!
 ## How to Use:
 - Click on **Upload** to upload any amount of images, then enter the name of the folder you want the images to go into
   - Entering the name of an existing folder will place the images in that folder
+  - I would suggest generating one folder at a time to prevent a long load time
 - Click on **Generate** to run the plotting engine after making any changes
   - OSMnx takes a bit of time to load new graph data, so the first generation attempt might take about a minute
 - Click on **Delete** next to any trip name in order to delete its folder
