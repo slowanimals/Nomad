@@ -15,11 +15,13 @@ A new way to visualize your journeys across the world!
      - `venv\Scripts\activate`
      
 3. **Install Dependencies**
+   - _if you see_ `(venv) (base)` _in your shell:_
+        - `conda deactivate`
    - `pip install -r requirements.txt`
-4. **Run App**
+5. **Run App**
    - `python3 nomad.py`
       - Go to the localhost link outputted in terminal (ex: `Running on http://127.0.0.1:8000`)
-5. **_(Optional)_ Load in a Desktop Window (via PyFlaDesk)**
+6. **_(Optional)_ Load in a Desktop Window (via PyFlaDesk)**
    - Scroll to the bottom of the file **app.py** until you see the line `app.run(port=8000, debug=True)`
       - Comment it out and then uncomment the line `init_gui(app)` to open Nomad in a separate desktop window
 
