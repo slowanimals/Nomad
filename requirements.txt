@@ -1,0 +1,7 @@
+flask 
+pyfladesk
+folium
+pillow
+exifread
+osmnx
+gunicorn
